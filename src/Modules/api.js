@@ -12,7 +12,6 @@ export const listTasks = async () => {
   };
   return axios(config)
     .then(function (response) {
-      console.log("🚀 ~ file: api.js:15 ~ response", response);
       console.log(response.data);
       return response.data;
     })
@@ -62,25 +61,18 @@ export const listUsers = async () => {
     });
 };
 
-export const updateTask = async () => {
-  const data = new FormData();
-  data.append("message", "Do xxx something dasasa");
-  data.append("due_date", "2020-09-19 12:12:12");
-  data.append("priority", "2");
-  data.append("assigned_to", "1");
-  data.append("taskid", "1");
+export const updateTask = async (data) => {
   const config = {
     method: "post",
     url: "https://devza.com/tests/tasks/update",
     headers: {
       AuthToken: AuthToken,
-      ...data.getHeaders(),
     },
     data: data,
   };
   return axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      console.log(response.data);
       return response.data;
     })
     .catch(function (error) {

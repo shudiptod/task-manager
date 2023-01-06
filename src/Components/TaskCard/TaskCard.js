@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import UpdateCard from "./UpdateCard";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, users, setReload }) => {
   const [editState, setEditState] = useState(false);
   return (
     <div
@@ -8,43 +9,22 @@ const TaskCard = ({ task }) => {
       draggable={!editState}
     >
       {editState ? (
-        <>
-          <input
-            type="text"
-            defaultValue={task.message}
-            className="w-full border-b-2 border-sky-600 outline-none my-2"
-          />
-          <input
-            type="text"
-            defaultValue={task.priority}
-            className="w-full border-b-2 border-sky-600 outline-none my-2"
-          />
-          <h5>{task.created_on}</h5>
-          <input
-            type="datetime-local"
-            defaultValue={task.due_date.replace(" ", "T")}
-            className="w-full border-b-2 border-sky-600 outline-none my-2"
-          />
-
-          <h5>{task.assigned_name || "Not Assigned"}</h5>
-          <div className="my-2 ml-auto w-6/12 max-w-max min-w-max border border-black flex justify-between">
-            <button
-              onClick={() => setEditState((state) => !state)}
-              className="px-3 py-2 border border-black"
-            >
-              cancel
-            </button>
-            <button className="px-3 py-2 border border-black">submit</button>
-          </div>
-        </>
+        <UpdateCard
+          setReload={setReload}
+          setEditState={setEditState}
+          users={users}
+          task={task}
+        />
       ) : (
         <>
-          <h3 className="my-3">{task.message}</h3>
-          <h5 className="my-3">{task.priority}</h5>
-          <h5 className="my-3">{task.created_on}</h5>
-          <h5 className="my-3">{task.due_date || "Deadline Not Specified"}</h5>
-          <h5 className="my-3">{task.assigned_name || "Not Assigned"}</h5>
-          <div className="my-2 ml-auto max-w-max min-w-max border border-black flex justify-between">
+          <h3 className="my-4">{task.message}</h3>
+          <h5 className="my-4">Priority: {task.priority}</h5>
+          <h5 className="my-4">Created: {task.created_on}</h5>
+          <h5 className="my-4">Deadline: {task.due_date || "Not Specified"}</h5>
+          <h5 className="my-4">
+            Assigned: {task.assigned_name || "Not Assigned"}
+          </h5>
+          <div className=" mt-16 mb-0 ml-auto max-w-max min-w-max border border-black flex justify-between">
             <button
               onClick={() => setEditState((state) => !state)}
               className="px-3 py-2 border border-black"
