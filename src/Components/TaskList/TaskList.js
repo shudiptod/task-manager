@@ -10,7 +10,7 @@ const TaskList = () => {
   const [reload, setReload] = useState(false);
   const [dateFilter, setDateFilter] = useState(null);
   const [priorityFilter, setPriorityFilter] = useState(null);
-
+  const [searchText, setSearchText] = useState("");
   useEffect(() => {
     const getData = async () => {
       const taskList = await listTasks();
@@ -54,8 +54,17 @@ const TaskList = () => {
           />
         </div>
       </div>
+      <div>
+        <input
+          onChange={(e) => setSearchText(e.target.value.toLowerCase())}
+          type="text"
+          className="py-2 px-2 border-2 border-sky-600"
+          placeholder="search task message"
+        />
+      </div>
       <div className=" grid grid-cols-3 gap-4">
         {tasks
+          .filter((task) => task.message.toLowerCase().includes(searchText))
           .filter((task) =>
             priorityFilter
               ? task.priority === priorityFilter
