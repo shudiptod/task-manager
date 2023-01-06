@@ -1,4 +1,4 @@
-import { updateTask } from "../../Modules/api";
+import { deleteTask, updateTask } from "../../Modules/api";
 
 export const updateForm = async (event, taskid, setEditState, setReload) => {
   event.preventDefault();
@@ -9,8 +9,18 @@ export const updateForm = async (event, taskid, setEditState, setReload) => {
     formData.append("priority", event.target.priority.value);
     formData.append("assigned_to", event.target.assigned_to.value);
     formData.append("taskid", taskid);
-    const updateResult = await updateTask(formData);
+    await updateTask(formData);
     setEditState(false);
+    setReload((state) => !state);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteTaskService = async (taskid, setReload) => {
+  try {
+    await deleteTask(taskid);
+    window.alert("Task Deleted");
     setReload((state) => !state);
   } catch (err) {
     console.log(err);

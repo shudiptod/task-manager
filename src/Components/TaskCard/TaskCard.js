@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { deleteTaskService } from "./services";
 import UpdateCard from "./UpdateCard";
 
 const TaskCard = ({ task, users, setReload }) => {
@@ -31,7 +32,12 @@ const TaskCard = ({ task, users, setReload }) => {
             >
               Edit
             </button>
-            <button className="px-3 py-2 border border-black">Delete</button>
+            <button
+              onClick={() => deleteTaskService(task.id, setReload)}
+              className="px-3 py-2 border border-black"
+            >
+              Delete
+            </button>
           </div>
         </>
       )}

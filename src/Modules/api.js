@@ -81,21 +81,20 @@ export const updateTask = async (data) => {
     });
 };
 
-export const deleteTask = () => {
+export const deleteTask = async (taskid) => {
   const data = new FormData();
-  data.append("taskid", "1");
+  data.append("taskid", taskid);
   const config = {
     method: "post",
     url: "https://devza.com/tests/tasks/delete",
     headers: {
       AuthToken: AuthToken,
-      ...data.getHeaders(),
     },
     data: data,
   };
   return axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      console.log(response.data);
       return response.data;
     })
     .catch(function (error) {
