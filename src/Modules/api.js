@@ -22,21 +22,14 @@ export const listTasks = async () => {
     });
 };
 
-export const createTask = async () => {
-  const data = new FormData();
-  data.append("message", "Do something?");
-  data.append("due_date", "2020-09-18 12:12:12");
-  data.append("priority", "2");
-  data.append("assigned_to", "1");
-
+export const createTask = async (formData, headers) => {
   const config = {
     method: "post",
     url: "https://devza.com/tests/tasks/create",
     headers: {
       AuthToken: AuthToken,
-      ...data.getHeaders(),
     },
-    data: data,
+    data: formData,
   };
   return axios(config)
     .then(function (response) {
